@@ -1,0 +1,11 @@
+{
+    "name": "wp-plugins/winipayer",
+    "description": "WiniPayer your online payment API, easy integration on mobile and web applications",
+    "type": "winipayer-wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "WpPlugins\\Winipayer\\": "src/"
+        }
+    },
+    "require": {}
+}
