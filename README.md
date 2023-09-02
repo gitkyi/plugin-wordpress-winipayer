@@ -16,6 +16,9 @@ Move into the wp-content/plugins, then you make git clone https://github.com/git
 
 ## Usage
 
+After installing winipayer, install the woocommerce plugin. Activate WiniPayer in the list of plugins.
+In the woocommerce menu, you will see winipayer plugins, you go to the settings option to configure the basic information necessary for the proper functioning of the winipayer plugin.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
