@@ -254,7 +254,8 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="card text-white bg-primary mb-3">
-                                    <a href="http://dddd">
+                                    <a href="https://winipayer.com/developpeur/documentation#idocswinipayer_integration"
+                                        target="_blank">
                                         <div class="card-body" style="padding:0px !important">
                                             <div class="row">
                                                 <div class="col-md-9">
@@ -272,7 +273,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="card text-white bg-primary mb-3">
-                                    <a href="http://dddd">
+                                    <a href="https://www.jarstechnologies.com/contact" target="_blank">
                                         <div class="card-body" style="padding:0px !important">
                                             <div class="row">
                                                 <div class="col-md-9">
