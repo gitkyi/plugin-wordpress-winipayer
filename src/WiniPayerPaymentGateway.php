@@ -6,6 +6,9 @@ use WpPlugins\Winipayer\WiniPayer;
 class WiniPayerPaymentGateway extends WC_Payment_Gateway
 {
 
+    /**
+     * Creation du constructeur
+     */
     public function __construct()
     {
         // Définissez les propriétés de la passerelle ici
@@ -20,6 +23,7 @@ class WiniPayerPaymentGateway extends WC_Payment_Gateway
         $this->init_settings();
 
         $this->title = $this->get_option('title');
+
         $this->description = $this->get_option('description');
         $this->has_fields = $this->get_option('has_fields');
         $this->pay_button_id = $this->get_option('pay_button_id');
@@ -35,95 +39,54 @@ class WiniPayerPaymentGateway extends WC_Payment_Gateway
         return $gateways;
     }
 
+    public function process_admin_options()
+    {
+
+        $post_data = $this->get_post_data();
+        $arrayValue = [];
+        foreach ($this->get_form_fields() as $key => $field) {
+
+            if ('title' !== $this->get_field_type($field)) {
+                try {
+
+                    $this->settings[$key] = $this->get_field_value($key, $field, $post_data);
+
+                    $arrayValue[] = [
+                        'id' => $key,
+                        'type' => $field['type'],
+                        'value' => $this->settings[$key],
+                    ];
+                } catch (Exception $e) {
+                    $this->add_error($e->getMessage());
+                }
+            }
+        }
+        $arrayValue = json_encode($arrayValue);
+    }
+
+    /**
+     * Creation et affichage des champs de configuration de winipayer
+     * @return void
+     */
     public function init_form_fields()
     {
 
-        $this->form_fields = [
-            'enabled' => array(
-                'title' => 'Enable/Disable',
-                'label' => 'Enable WiniPayer Payment Gateway',
-                'type' => 'checkbox',
-                'default' => 'yes'
-            ),
-            'title' => array(
-                'title' => 'Titre',
-                'type' => 'text',
-                'description' => 'Title for the winipayer payment gateway',
-                'default' => 'WiniPayer Payment Gateway'
-            ),
-            'description' => array(
-                'title' => 'Description',
-                'type' => 'textarea',
-                'description' => 'Description for the winipayer payment gateway',
-                'default' => 'Pay with our winipayer payment gateway'
-            ),
-            'winipayer_apply_key' => array(
-                'title' => 'WINIPAYER_APPLY_KEY',
-                'type' => 'text',
-                'validate' => array($this, 'validate_apply_key'),
-                'default' => ''
-            ),
-            'winipayer_env' => array(
-                'title' => 'WINIPAYER_ENV',
-                'type' => 'select',
-                'description' => 'Sélectionner votre environnement de travail',
-                'options' => array(
-                    'test' => 'Test',
-                    'prod' => 'Production',
-                ),
-                'default' => 'Non'
-            ),
-            'winipayer_token_key' => array(
-                'title' => 'WINIPAYER_TOKEN_KEY',
-                'type' => 'text',
-                'default' => ''
-            ),
-            'winipayer_private_key' => array(
-                'title' => 'WINIPAYER_PRIVATE_KEY',
-                'type' => 'text',
-                'default' => ''
-            ),
-            'winipayer_currency' => array(
-                'title' => 'WINIPAYER_CURRENCY',
-                'type' => 'select',
-                'options' => array(
-                    'xof' => 'xof',
-                ),
-                'default' => 'xof'
-            ),
-            'winipayer_wpsecure' => array(
-                'title' => 'WINIPAYER_WPSECURE',
-                'type' => 'select',
-                'description' => 'Sécuriser la transaction',
-                'options' => array(
-                    'false' => 'Non',
-                    'true' => 'Oui',
-                ),
-                'default' => 'Non'
-            ),
-            'winipayer_cancel_url' => array(
-                'title' => 'WINIPAYER_CANCEL_URL',
-                'type' => 'text',
-                'default' => '',
-                'placeholder' => 'https://link-woocommerce.com/cancel-url'
-            ),
-            'winipayer_return_url' => array(
-                'title' => 'WINIPAYER_RETURN_URL',
-                'type' => 'text',
-                'default' => '',
-                'placeholder' => 'https://link-woocommerce.com/return-url'
-            ),
-            'winipayer_callback_url' => array(
-                'title' => 'WINIPAYER_CALLBACK_URL',
-                'type' => 'text',
-                'default' => '',
-                'placeholder' => 'https://link-woocommerce.com/callback-url'
-            )
-        ];
+        $pathsForm = __DIR__ . '/forms/index.json';
+
+        $contenu = file_get_contents($pathsForm);
+
+        $forms = json_decode($contenu, true);
+
+        $this->form_fields = $forms;
 
     }
 
 
+    /**
+     * Creation de la commande puis redirection vers la page de paiement de winipayer
+     * @param mixed $order_id
+     * @return array
+     */
     public function process_payment($order_id)
     {
         // Gérez ici la logique de paiement en utilisant votre classe Paiement
@@ -165,6 +128,10 @@ class WiniPayerPaymentGateway extends WC_Payment_Gateway
         //WC()->cart->empty_cart();
     }
 
+    /**
+     * Validation des parametres de configuration
+     * @return void
+     */
     private function validateParams()
     {
 

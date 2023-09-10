@@ -58,6 +58,7 @@
         z-index: 0;
     }
 
+
     .process-model li::after {
         background: #e5e5e5 none repeat scroll 0 0;
         bottom: 0;
@@ -202,20 +203,6 @@
         }
     }
 </style>
-<script>
-    // script for tab steps
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
-        var href = $(e.target).attr('href');
-        var $curr = $(".process-model  a[href='" + href + "']").parent();
-
-        $('.process-model li').removeClass();
-
-        $curr.addClass("active");
-        $curr.prevAll().addClass("visited");
-    });
-// end  script for tab steps
-</script>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
@@ -233,18 +220,18 @@
                 <div role="tabpanel" class="tab-pane active" id="home">
                     <div class="design-process-content">
                         <div class="row">
-                            <div class="col-md-3 offset-1">
-                                <div class="card text-white bg-primary mb-3">
+                            <div class="col-md-3 col-sm-12  col-xs-12">
+                                <div class="card text-white bg-primary mb-3 mr-4">
                                     <a
                                         href="<?php echo admin_url('admin.php?page=wc-settings&tab=checkout&section=9668d260-3f24-4603-b254-7e7a65aab0e4') ?>">
                                         <div class="card-body" style="padding:0px !important">
                                             <div class="row">
-                                                <div class="col-md-9">
+                                                <div class="col-md-9  col-sm-9 col-xs-9">
                                                     <h3 class="text-white">Paramêtre</h3>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
                                                     <img src="../wp-content/plugins/winipayer/assets/images/reglage.png"
-                                                        alt=""
+                                                        alt="" class="img-fluid"
                                                         srcset="../wp-content/plugins/winipayer/assets/images/reglage.png">
                                                 </div>
                                             </div>
@@ -252,18 +239,35 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-primary mb-3">
-                                    <a href="https://winipayer.com/developpeur/documentation#idocswinipayer_integration"
-                                        target="_blank">
+                            <div class="col-md-3 col-sm-12  col-xs-12">
+                                <div class="card text-white bg-primary mb-3 mr-4">
+                                    <a href="<?php echo admin_url('admin.php?page=winipayer-transactions') ?>">
                                         <div class="card-body" style="padding:0px !important">
                                             <div class="row">
-                                                <div class="col-md-9">
+                                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                                    <h3 class="text-white">Transactions</h3>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    <img src="../wp-content/plugins/winipayer/assets/images/liste-invoice.png"
+                                                        alt="" class="img-fluid"
+                                                        srcset="../wp-content/plugins/winipayer/assets/images/liste-invoice.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12  col-xs-12">
+                                <div class="card text-white bg-primary mb-3 mr-4">
+                                    <a href="http://dddd">
+                                        <div class="card-body" style="padding:0px !important">
+                                            <div class="row">
+                                                <div class="col-md-9  col-sm-9 col-xs-9">
                                                     <h3 class="text-white">Documentation</h3>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
                                                     <img src="../wp-content/plugins/winipayer/assets/images/documentation.png"
-                                                        alt=""
+                                                        alt="" class="img-fluid"
                                                         srcset="../wp-content/plugins/winipayer/assets/images/documentation.png">
                                                 </div>
                                             </div>
@@ -271,17 +275,17 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-primary mb-3">
-                                    <a href="https://www.jarstechnologies.com/contact" target="_blank">
+                            <div class="col-md-3 col-sm-12  col-xs-12">
+                                <div class="card text-white bg-primary mb-3 mr-4">
+                                    <a href="http://dddd">
                                         <div class="card-body" style="padding:0px !important">
                                             <div class="row">
-                                                <div class="col-md-9">
+                                                <div class="col-md-9  col-sm-9 col-xs-9">
                                                     <h3 class="text-white">Support Technique</h3>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
                                                     <img src="../wp-content/plugins/winipayer/assets/images/question.png"
-                                                        alt=""
+                                                        alt="" class="img-fluid"
                                                         srcset="../wp-content/plugins/winipayer/assets/images/question.png">
                                                 </div>
                                             </div>

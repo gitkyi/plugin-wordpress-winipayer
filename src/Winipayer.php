@@ -38,6 +38,11 @@ class WiniPayer
     {
 
         add_action('plugins_loaded', array($this, 'init_gateway'));
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_jsCustomize']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_styles']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_stylesBoostrap']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_scriptsBoostrap']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_scriptsFontAwesome']);
 
         if (is_admin()) {
             $adminController = new AdminController();
@@ -45,11 +50,36 @@ class WiniPayer
     }
 
 
+    public function enqueue_jsCustomize()
+    {
+        wp_enqueue_script('winipayer-script', plugin_dir_url(__FILE__) . '../assets/js/winipayer-script.js?v=' . date('dmyhis'));
+    }
+
+    public function enqueue_styles()
+    {
+        wp_enqueue_style('winipayer-css', plugin_dir_url(__FILE__) . '../assets/css/winipayer-style.css');
+    }
+
+    public function enqueue_stylesBoostrap()
+    {
+        wp_enqueue_style('boostrap-css', plugin_dir_url(__FILE__) . '../assets/css/bootstrap.min.css');
+    }
+
+    public function enqueue_scriptsBoostrap()
+    {
+        wp_enqueue_script('boostrap-js', plugin_dir_url(__FILE__) . '../assets/js/bootstrap.min.js', ['jquery'], '1.0', true);
+    }
+
+    public function enqueue_scriptsFontAwesome()
+    {
+        wp_enqueue_style('font-awesome', plugin_dir_url(__FILE__) . '../assets/css/font/font-awesome.min.css');
+    }
+
     public function init_gateway()
     {
 
         if (class_exists('WC_Payment_Gateway')) {
-            require_once 'WiniPayerPaymentGateway.php'; // Remplacez par le chemin vers votre classe de passerelle
+            require_once 'WiniPayerPaymentGateway.php';
             add_filter('woocommerce_payment_gateways', array($this, 'add_winipayer_gateway'));
         }
     }
@@ -237,17 +267,26 @@ class WiniPayer
      * Summary of listInvoice
      * @return array
      */
-    public function listInvoice(array $params): array
+    public function listInvoice(string $search = null, string $paginate = null, string $dateStart = null, string $dateEnd = null, string $env = 'test'): array
     {
 
         $gateway = new WiniPayerPaymentGateway();
 
         $headers = [
-            'X-Auth-Token' => $gateway->get_option(self::OPTION_WINIPAYER_X_AUTH_TOKEN),
-            'X-Auth-Email' => $gateway->get_option(self::OPTION_WINIPAYER_X_AUTH_EMAIL),
+            'X-Merchant-Apply' => $gateway->get_option(self::OPTION_WINIPAYER_APPLY_KEY),
+            'X-Merchant-Token' => $gateway->get_option(self::OPTION_WINIPAYER_TOKEN_KEY),
         ];
 
-        return $this->_curl('POST', '/user/invoice/list', $params, $headers);
+        return $this->_curl('POST', '/transaction/invoice/list', [
+            'env' => $env,
+            'version' => 'v1',
+            'page' => !isset($paginate) || empty($paginate) ? 1 : $paginate,
+            'date_start' => $dateStart,
+            'date_end' => $dateEnd,
+            'uuid' => $search ?? '',
+            'state' => $search ?? '',
+            'operator' => $search ?? ''
+        ], $headers);
     }
 
 

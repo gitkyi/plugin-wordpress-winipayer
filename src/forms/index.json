@@ -1,0 +1,97 @@
+{
+	"enabled":
+	{
+		"title": "Enable/Disable",
+		"label": "Enable WiniPayer Payment Gateway",
+		"type": "checkbox",
+		"default": "yes"
+	},
+	"title":
+	{
+		"title": "Titre",
+		"type": "text",
+		"description": "Title for the winipayer payment gateway",
+		"default": "WiniPayer Payment Gateway"
+	},
+	"description":
+	{
+		"title": "Description",
+		"type": "textarea",
+		"description": "Description for the winipayer payment gateway",
+		"default": "Pay with our winipayer payment gateway"
+	},
+	"winipayer_apply_key":
+	{
+		"title": "WINIPAYER_APPLY_KEY",
+		"type": "text",
+		"validate": ["-- Not a supported string literal (unprocessed value). --", "validate_apply_key"],
+		"default": ""
+	},
+	"winipayer_env":
+	{
+		"title": "WINIPAYER_ENV",
+		"type": "select",
+		"description": "S\u00e9lectionner votre environnement de travail",
+		"options":
+		{
+			"test": "Test",
+			"prod": "Production"
+		},
+		"default": "Non"
+	},
+	"winipayer_token_key":
+	{
+		"title": "WINIPAYER_TOKEN_KEY",
+		"type": "text",
+		"default": ""
+	},
+	"winipayer_private_key":
+	{
+		"title": "WINIPAYER_PRIVATE_KEY",
+		"type": "text",
+		"default": ""
+	},
+	"winipayer_currency":
+	{
+		"title": "WINIPAYER_CURRENCY",
+		"type": "select",
+		"options":
+		{
+			"xof": "xof"
+		},
+		"default": "xof"
+	},
+	"winipayer_wpsecure":
+	{
+		"title": "WINIPAYER_WPSECURE",
+		"type": "select",
+		"description": "S\u00e9curiser la transaction",
+		"options":
+		{
+			"false": "Non",
+			"true": "Oui"
+		},
+		"default": "Non"
+	},
+	"winipayer_cancel_url":
+	{
+		"title": "WINIPAYER_CANCEL_URL",
+		"type": "text",
+		"default": "",
+		"placeholder": "https://link-woocommerce.com/cancel-url"
+	},
+	"winipayer_return_url":
+	{
+		"title": "WINIPAYER_RETURN_URL",
+		"type": "text",
+		"default": "",
+		"placeholder": "https://link-woocommerce.com/return-url"
+	},
+	"winipayer_callback_url":
+	{
+		"title": "WINIPAYER_CALLBACK_URL",
+		"type": "text",
+		"default": "",
+		"placeholder": "https://link-woocommerce.com/callback-url"
+	}
+}
